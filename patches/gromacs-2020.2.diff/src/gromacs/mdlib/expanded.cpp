@@ -1322,10 +1322,13 @@ int ExpandedEnsembleDynamics(FILE*                 log,
 
     if (plumedswitch)
     {
+        // Is there a way to get the bias at other grid points?
+        // As long as SIGMA is small, no significant addition to other lambda will happen,
+        // so this is ok. When SIGMA gets larger, neighboring states will get contributions,
+        // and we will need to update the weights at these states before doing the MC step
         real bias = 0;
         plumed_cmd(plumedmain, "getBias", &bias);
-        dfhist->sum_weights[fep_state] = -bias - dfhist->sum_weights[0];
-        // Is there a way to get the bias at other grid points?
+        dfhist->sum_weights[fep_state] = -bias;
     }
     else
     {
