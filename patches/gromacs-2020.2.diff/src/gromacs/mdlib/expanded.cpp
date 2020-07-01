@@ -1328,6 +1328,12 @@ int ExpandedEnsembleDynamics(FILE*                 log,
         // and we will need to update the weights at these states before doing the MC step
         real bias = 0;
         plumed_cmd(plumedmain, "getBias", &bias);
+        static bool firstCall = true;
+        if (firstCall)
+        {
+            fprintf(log, "\nLAMBDA METAD VERSION 0.1.1a\n");
+            firstCall = false;
+        }
         dfhist->sum_weights[fep_state] = -bias;
     }
     else
