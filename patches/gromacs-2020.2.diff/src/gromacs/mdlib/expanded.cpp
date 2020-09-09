@@ -1330,7 +1330,7 @@ int ExpandedEnsembleDynamics(FILE*                 log,
         static bool firstCall = true;
         if (firstCall)
         {
-            fprintf(log, "\nLAMBDA METAD VERSION 0.1.3a\n");
+            fprintf(log, "\nLAMBDA METAD VERSION 0.1.4a\n");
             firstCall = false;
         }
 
@@ -1345,6 +1345,7 @@ int ExpandedEnsembleDynamics(FILE*                 log,
             plumed_cmd(plumedmain, "prepareCalc", nullptr);
             plumed_cmd(plumedmain, "performCalcNoUpdate", nullptr);
             plumed_cmd(plumedmain, "getBias", &bias);
+            bias /= expand->mc_temp * BOLTZ;
             if (i == 0)
             {
                 zeroBias = bias;
